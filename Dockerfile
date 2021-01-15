@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     python \
     python-dev \
     python-numpy \
+    sudo \
     software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
@@ -60,12 +61,15 @@ RUN chmod +x /root/argos3/build_simulator/argos_post_install.sh &&\
 # Add dummy argument to force rebuild starting from that point
 ARG UPDATE_CODE=unknown
 
-# Clone your repository (Important: replace your repository here)
+# Clone your repository
 # If your repository is private, you will need to use ssh keys, look here: 
 # https://stackoverflow.com/a/23411161/8150481
+# For now we clone some argos3 examples
 RUN cd /root &&\
-    git clone https://github.com/lajoiepy/argos3_docker_example.git simulation
+    git clone https://github.com/ilpincy/argos3-examples.git examples
 
-# Entry point to start the simulation
-WORKDIR /root
-# ENTRYPOINT argos3 -c /path/to/your/file.argos
+# Build your code (here examples)
+RUN cd /root/examples &&\
+    mkdir build && cd build &&\
+    cmake -DCMAKE_BUILD_TYPE=Debug .. &&\
+    make

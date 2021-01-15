@@ -3,13 +3,8 @@ This is a minimal docker example to run Argos3 on any platform.
 The following assumes that you are running on a Linux distribution.
 Look at the end for Windows and Mac support.
 
-# Acces to GUI
-The ARGoS simulation needs access to a graphical user interface to work. Many
-options are available to have access to the GUI of the apps running in your
-docker container.
-
-# Build the Image
-For the first build execute: 
+## Build the Image
+For the first build execute in the same folder as the Dockerfile: 
 ```
 docker build . --tag argos-example --network host
 ```
@@ -20,8 +15,7 @@ Example:
 ```
 docker build . --tag argos-example --network host --build-arg CODE_UPDATE=1
 ```
-
-# Running a Container
+## Running a Container
 The ARGoS simulation needs access to a graphical user interface to work. 
 Many options are available to have access to the GUI of the apps running in your
 docker container.
@@ -31,34 +25,28 @@ You can install `x11docker` with the following command:
 curl -fsSL https://raw.githubusercontent.com/mviereck/x11docker/master/x11docker | sudo bash -s -- --update
 ```
 
-# Launching the Simulation
-If the correct `ENTRYPOINT` is specified in the Dockerfile, the simulation
-should start when the container launches.
-Otherwise, you can start a bash shell into the container with the following command: 
+## Launching the Simulation
+You can start a bash shell into the container with the following command: 
 ```
 docker exec -it $(docker container ls -q) /bin/bash
 ```
 If you have multiple containers running at the same time, you can replace the `$(docker container ls -q)` with the container ID. The container ID can be found using `docker ps`. 
 
-Then you can start the simulation yourself by going into the folder `/path/to/your/file.argos`
-and executing :
+Then you can start the simulation yourself.
+For example, go into the folder `/root/examples`
+and execute :
 ```
-argos3 -c example.argos
+argos3 -c experiments/diffusion_10.argos
 ```
-The command for the basic example in this container is:
-```
-
-```
-
-# Visual Studio Code
+## Visual Studio Code (not essential but recommended)
 I recommend using [Visual Studio Code](https://code.visualstudio.com/) to edit
 and debug your code.
 
-## Development
+### Development
 Look here to develop inside your Docker container with VSCode:
 https://code.visualstudio.com/docs/remote/containers
 
-## Debugging
+### Debugging
 1. Launch Visual Studio Code in the folder `/path/to/your/code`.
 2. Launch the simulation.
 3. Create a `(gdb) Attach` configuration in Visual Studio Code debugging tool
@@ -84,9 +72,9 @@ https://code.visualstudio.com/docs/remote/containers
 4. In the debugging drop list choose `(gdb) Attach`, press play and select the running `argos3` process.
 5. You are ready to place your breakpoints and debug!
 
-# Other Platforms
+## Other Platforms
 
-## Windows Support
+### Windows Support
 Thanks to the magic of Docker, it is possible to run the simulation on Windows as follows:
 - Install [Docker for Windows](https://docs.docker.com/get-docker/)
 - Install [VcXsrv](https://sourceforge.net/projects/vcxsrv/) to instantiate a X server.
@@ -98,9 +86,12 @@ Thanks to the magic of Docker, it is possible to run the simulation on Windows a
 - Now you can launch the simulation as normal! For example: `argos3 -c
   example.argos`.
 
-## MAC Support
+### MAC Support
 Never tried it myself, but it should work. Look here: https://medium.com/@mreichelt/how-to-show-x11-windows-within-docker-on-mac-50759f4b65cb
 
+## Networking
+There are plenty of networking things you can do with Docker (exposing ports,
+share host network, etc.). Look here for more info: https://docs.docker.com/network/
 # Questions?
 For further questions or comments, feel free to contact me at :
 `pierre-yves.lajoie@polymtl.ca` or leave an issue on this repository.
