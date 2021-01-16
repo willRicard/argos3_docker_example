@@ -17,13 +17,11 @@ docker build . --tag argos-example --network host --build-arg CODE_UPDATE=1
 ```
 ## Running a Container
 The ARGoS simulation needs access to a graphical user interface to work. 
-Many options are available to have access to the GUI of the apps running in your
+Many options are available to share the X server and have access to the GUI of the apps running in your
 docker container.
-I propose using https://github.com/mviereck/x11docker, but feel free to use another one. 
-You can install `x11docker` with the following command:
-```
-curl -fsSL https://raw.githubusercontent.com/mviereck/x11docker/master/x11docker | sudo bash -s -- --update
-```
+You can look [here](http://wiki.ros.org/docker/Tutorials/GUI) for multiple options on Linux.
+Otherwise, I also suggest using https://github.com/mviereck/x11docker with options `--hostdisplay --hostnet --user=RETAIN -- --privileged`. 
+Look at the end of this file for Windows and Mac options.
 
 ## Launching the Simulation
 You can start a bash shell into the container with the following command: 
