@@ -84,7 +84,7 @@ Thanks to the magic of Docker, it is possible to run the simulation on Windows a
 - Now you can launch the simulation as normal! For example: `argos3 -c
   example.argos`.
 
-### MAC Support
+### Mac Support
 Never tried it myself, but it should work. Look here: https://medium.com/@mreichelt/how-to-show-x11-windows-within-docker-on-mac-50759f4b65cb
 
 ## Networking
