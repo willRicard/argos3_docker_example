@@ -45,7 +45,7 @@ RUN cd /root/ &&\
      -DARGOS_BUILD_FOR=simulator \
      -DARGOS_THREADSAFE_LOG=ON \
      -DARGOS_DYNAMIC_LOADING=ON &&\
-    make
+    make -j $(nproc)
 RUN touch /root/argos3/build_simulator/argos3.1.gz &&\
     touch /root/argos3/build_simulator/README.html &&\
     cd /root/argos3/build_simulator &&\
@@ -72,4 +72,4 @@ RUN cd /root &&\
 RUN cd /root/examples &&\
     mkdir build && cd build &&\
     cmake -DCMAKE_BUILD_TYPE=Debug .. &&\
-    make
+    make -j $(nproc)
