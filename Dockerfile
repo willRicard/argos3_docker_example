@@ -39,6 +39,7 @@ ARG UPDATE_ARGOS=unknown
 RUN cd /root/ &&\
     git clone https://github.com/ilpincy/argos3.git &&\
     cd argos3 &&\
+    git checkout 92164b84 &&\
     mkdir build_simulator &&\
     cd build_simulator &&\
     cmake ../src -DCMAKE_BUILD_TYPE=Debug \
