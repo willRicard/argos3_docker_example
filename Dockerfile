@@ -37,9 +37,9 @@ ARG UPDATE_ARGOS=unknown
 
 # Install Argos from source
 RUN cd /root/ &&\
-    git clone https://github.com/ilpincy/argos3.git &&\
+    git clone https://github.com/MISTLab/argos3.git &&\
     cd argos3 &&\
-    git checkout 92164b84 &&\
+    git checkout inf3995 &&\
     mkdir build_simulator &&\
     cd build_simulator &&\
     cmake ../src -DCMAKE_BUILD_TYPE=Debug \
@@ -67,7 +67,9 @@ ARG UPDATE_CODE=unknown
 # https://stackoverflow.com/a/23411161/8150481
 # For now we clone some argos3 examples
 RUN cd /root &&\
-    git clone https://github.com/ilpincy/argos3-examples.git examples
+    git clone https://github.com/MISTLab/argos3-examples.git examples &&\
+    cd examples &&\
+    git checkout inf3995
 
 # Build your code (here examples)
 RUN cd /root/examples &&\
