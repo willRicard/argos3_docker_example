@@ -58,7 +58,7 @@ https://code.visualstudio.com/docs/remote/containers
             "type": "cppdbg", 
             "request": "attach", 
             "program" :  "/usr/local/bin/argos3", 
-            "processId": "\${command:pickProcess}",
+            "processId": "${command:pickProcess}",
             "MIMode": "gdb", 
             "setupCommands": 
                 [ { "description": "Enable pretty-printing for gdb", 
