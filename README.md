@@ -13,7 +13,7 @@ cache.
 If you modified the ARGoS simulator itself use the arg `UPDATE_ARGOS` instead.
 Example:
 ```
-docker build . --tag argos-example --network host --build-arg CODE_UPDATE=1
+docker build . --tag argos-example --network host --build-arg UPDATE_CODE=1
 ```
 ## Running a Container
 The ARGoS simulation needs access to a graphical user interface to work. 
