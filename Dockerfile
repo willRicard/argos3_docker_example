@@ -30,6 +30,8 @@ RUN apt-get update && apt-get install -y \
     lua5.3 \
     libboost-filesystem-dev \
     cmake \
+    zlib1g-dev \
+    nlohmann-json-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Add dummy argument to force rebuild starting from that point
@@ -47,6 +49,7 @@ RUN cd /root/ &&\
      -DARGOS_THREADSAFE_LOG=ON \
      -DARGOS_DYNAMIC_LOADING=ON &&\
     make -j $(nproc)
+
 RUN touch /root/argos3/build_simulator/argos3.1.gz &&\
     touch /root/argos3/build_simulator/README.html &&\
     cd /root/argos3/build_simulator &&\
@@ -54,6 +57,16 @@ RUN touch /root/argos3/build_simulator/argos3.1.gz &&\
 RUN chmod +x /root/argos3/build_simulator/argos_post_install.sh &&\
     ./root/argos3/build_simulator/argos_post_install.sh &&\
     echo "\nsource /root/argos3/build_simulator/setup_env.sh\n" >> /.bashrc
+
+# Install Argos WebViz plugin
+RUN cd /root/ &&\
+    git clone https://github.com/NESTLab/argos3-webviz &&\
+    cd argos3-webviz &&\
+    mkdir build &&\
+    cd build &&\
+    cmake ../src -DCMAKE_BUILD_TYPE=Debug &&\
+    make && make install
+
 
 #################################
 #          YOUR CODE            #
@@ -70,6 +83,9 @@ RUN cd /root &&\
     git clone https://github.com/MISTLab/argos3-examples.git examples &&\
     cd examples &&\
     git checkout inf3995
+
+RUN cd /root &&\
+    git clone https://github.com/NESTLab/argos3-webviz-examples
 
 # Build your code (here examples)
 RUN cd /root/examples &&\
