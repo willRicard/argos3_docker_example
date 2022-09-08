@@ -30,6 +30,7 @@ RUN apt-get update && apt-get install -y \
     lua5.3 \
     libboost-filesystem-dev \
     cmake \
+    lcov \
     zlib1g-dev \
     nlohmann-json-dev \
     && rm -rf /var/lib/apt/lists/*
