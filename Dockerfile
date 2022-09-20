@@ -46,6 +46,7 @@ RUN cd /root/ &&\
     mkdir build_simulator &&\
     cd build_simulator &&\
     cmake ../src -DCMAKE_BUILD_TYPE=Debug \
+     -DCMAKE_INSTALL_PREFIX=/usr \
      -DARGOS_BUILD_FOR=simulator \
      -DARGOS_THREADSAFE_LOG=ON \
      -DARGOS_DYNAMIC_LOADING=ON &&\
@@ -61,11 +62,12 @@ RUN chmod +x /root/argos3/build_simulator/argos_post_install.sh &&\
 
 # Install Argos WebViz plugin
 RUN cd /root/ &&\
-    git clone https://github.com/NESTLab/argos3-webviz &&\
+    git clone https://github.com/willRicard/argos3-webviz &&\
     cd argos3-webviz &&\
+    git checkout crazyflie &&\
     mkdir build &&\
     cd build &&\
-    cmake ../src -DCMAKE_BUILD_TYPE=Debug &&\
+    cmake ../src -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr &&\
     make && make install
 
 
@@ -81,15 +83,16 @@ ARG UPDATE_CODE=unknown
 # https://stackoverflow.com/a/23411161/8150481
 # For now we clone some argos3 examples
 RUN cd /root &&\
-    git clone https://github.com/MISTLab/argos3-examples.git examples &&\
+    git clone https://github.com/willRicard/argos3-examples.git examples &&\
     cd examples &&\
-    git checkout inf3995
-
-RUN cd /root &&\
-    git clone https://github.com/NESTLab/argos3-webviz-examples
+    git checkout webviz
 
 # Build your code (here examples)
 RUN cd /root/examples &&\
     mkdir build && cd build &&\
     cmake -DCMAKE_BUILD_TYPE=Debug .. &&\
     make -j $(nproc)
+
+ADD start.sh /
+
+CMD /start.sh
